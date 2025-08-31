@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><?= $message ?></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>body {font-family: Arial, sans; text-align: left;}</style>
+  </head>
+  <body>
+    <header>
+      <h1><?= $code ?>: <?= $message ?></h1>
+      <?php if ($extended_info): ?>
+        <pre><b>Throwable:</b> <?= print_r($throwable, true); ?></pre>
+      <?php endif ?>
+    </header>
+  </body>
+</html>
