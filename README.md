@@ -2,7 +2,7 @@
 
 DMP Sent Events (DMPsee) is an **open standard** designed to propagate updates 
 from DMP platforms to other systems. 
-At its core, the standard defines the publication of **"DMP related events**.
+At its core, the standard defines the publication of DMP related events.
 These events can then be consumed by any interested subscriber.  
 
 This publish/subscribe model enables a loosely coupled and scalable approach 
