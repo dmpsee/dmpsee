@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vinti-deployment
+  namespace: roadmap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vinti
+  template:
+    metadata:
+      labels:
+        app: vinti
+    spec:
+      initContainers:
+        - name: init-vinti-user
+          image: naranza/vinti:latest
+          env:
+            - name: VINTI_USER
+              valueFrom:
+                secretKeyRef:
+                  name: vinti-user
+                  key: username
+            - name: VINTI_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: vinti-user
+                  key: password
+            - name: VINTI_ROLE
+              valueFrom:
+                secretKeyRef:
+                  name: vinti-user
+                  key: role
+          command: [ "sh", "-c" ]
+          args:
+            - |
+              if [ ! -f /storage/_user/$VINTI_USER ]; then
+                echo "Creating user $VINTI_USER..."
+                init-user "$VINTI_USER" "$VINTI_PASSWORD" "$VINTI_ROLE"
+              else
+                echo "User $VINTI_USER already exists, skipping..."
+              fi
+          volumeMounts:
+            - name: dmpsee-volume
+              mountPath: /storage
+      containers:
+        - name: vinti
+          image: naranza/vinti:latest
+          ports:
+            - containerPort: 20201
+          volumeMounts:
+            - name: dmpsee-volume
+              mountPath: /storage
+      volumes:
+        - name: dmpsee-volume
+          persistentVolumeClaim:
+            claimName: dmpsee-storage

@@ -1,1 +1,2 @@
-app/api/conf/app.ext.php
+src/app/api/conf/app.ext.php
+src/conf/vinti.php
