@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: dmpsee-storage
-  namespace: dmpsee
+  name: vaquita-storage
+  namespace: vaquita
 spec:
   accessModes:
     - ReadWriteOnce

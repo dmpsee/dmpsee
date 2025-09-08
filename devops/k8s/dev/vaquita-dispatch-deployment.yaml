@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vaquita-dispatch
+  namespace: vaquita
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vaquita-dispatch
+  template:
+    metadata:
+      labels:
+        app: vaquita-dispatch
+    spec:
+      containers:
+      - name: vaquita-dispatch
+        image: vaquita-dispatch:dev
+        volumeMounts:
+        - name: dispatch-code
+          mountPath: /opt/vaquita
+        # Command removed; container uses its default CMD
+      volumes:
+      - name: dispatch-code
+        hostPath:
+          path: /home/andrea/git/dmpsee-vaquita/src  # adjust to your local path
+          type: Directory

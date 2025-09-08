@@ -1,7 +1,8 @@
-ARG ALPINE_VERSION=3.21
+ARG ALPINE_VERSION=3.22
+
 FROM alpine:${ALPINE_VERSION}
 LABEL Maintainer="Digital Curation Centre (UK)"
-LABEL Description="DMPsee container php-nginx based on Alpine Linux."
+LABEL Description="vaquita API container"
 
 # Install packages and remove default server definition
 RUN apk add --no-cache \
@@ -31,13 +32,13 @@ RUN apk add --no-cache \
 RUN ln -s /usr/bin/php84 /usr/bin/php
 
 # Copy SSL certificates
-COPY config/ssl/dmpsee.* /etc/ssl/
+COPY config/ssl/vaquita.* /etc/ssl/
 
 # Configure nginx
 RUN sed -i 's#access_log /var/log/nginx/access.log main;#access_log /dev/stdout main;#' /etc/nginx/nginx.conf
 RUN sed -i 's#error_log /var/log/nginx/error.log warn;#error_log /dev/stderr notice;#' /etc/nginx/nginx.conf
 COPY config/http.d/default.conf /etc/nginx/http.d/
-COPY config/http.d/dmpsee-api.conf /etc/nginx/http.d/
+COPY config/http.d/vaquita-api.conf /etc/nginx/http.d/
 
 # Configure php-fpm
 RUN sed -i 's#;error_log = log/php84/error.log#error_log = /dev/stderr#' /etc/php84/php-fpm.conf
@@ -46,7 +47,7 @@ RUN sed -i 's#;error_log = log/php84/error.log#error_log = /dev/stderr#' /etc/ph
 COPY www/test.php /var/www/html/
 
 RUN mkdir -p \
-  /opt/dmpsee
+  /opt/vaquita
 
 # Configure PHP-FPM
 ENV PHP_INI_DIR=/etc/php84
@@ -56,7 +57,7 @@ COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 EXPOSE 80 443
 
-WORKDIR /opt/dmpsee
+WORKDIR /opt/vaquita
 
 # Let supervisord start nginx & php-fpm
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

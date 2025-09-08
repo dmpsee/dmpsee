@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vaquita-api
+  namespace: vaquita
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vaquita-api
+  template:
+    metadata:
+      labels:
+        app: vaquita-api
+    spec:
+      containers:
+      - name: vaquita-api
+        image: vaquita-api:dev
+        ports:
+        - containerPort: 443
+        - containerPort: 80
+        volumeMounts:
+        - name: api-code
+          mountPath: /opt/vaquita
+        command: ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+      volumes:
+      - name: api-code
+        hostPath:
+          path: /home/andrea/git/dmpsee-vaquita/src  # adjust to your local path
+          type: Directory

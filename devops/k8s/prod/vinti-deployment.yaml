@@ -42,7 +42,7 @@ spec:
                 echo "User $VINTI_USER already exists, skipping..."
               fi
           volumeMounts:
-            - name: dmpsee-volume
+            - name: vaquita-volume
               mountPath: /storage
       containers:
         - name: vinti
@@ -50,9 +50,9 @@ spec:
           ports:
             - containerPort: 20201
           volumeMounts:
-            - name: dmpsee-volume
+            - name: vaquita-volume
               mountPath: /storage
       volumes:
-        - name: dmpsee-volume
+        - name: vaquita-volume
           persistentVolumeClaim:
-            claimName: dmpsee-storage
+            claimName: vaquita-storage

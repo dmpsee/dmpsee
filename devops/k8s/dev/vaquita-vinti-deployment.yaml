@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vaquita-vinti
+  namespace: vaquita
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vaquita-vinti
+  template:
+    metadata:
+      labels:
+        app: vaquita-vinti
+    spec:
+      containers:
+      - name: vinti
+        image: vaquita-vinti:prod
+        ports:
+        - containerPort: 20201
+        volumeMounts:
+        - name: vinti-storage
+          mountPath: /storage
+      volumes:
+      - name: vinti-storage
+        hostPath:
+          path: /home/andrea/git/dmpsee-vaquita/tmp/storage  # adjust to your local path
+          type: DirectoryOrCreate
