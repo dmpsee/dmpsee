@@ -18,14 +18,13 @@ define('SESTO_MEM_START', memory_get_usage(true));
 $sys_dir = realpath(__DIR__ . '/../../..');
 
 require $sys_dir . '/lib/sesto/initme.php';
-// require $sys_dir . '/app/dispatcher/lib/dmpsee/engine.php';
 require SESTO_DIR . '/app/exec.php';
 
 list($exit_code, $error) = sesto_app_exec(
   $sys_dir,
-  (new sesto_scd('dmpseee_dispatcher_engine', [], $sys_dir . '/app/dispatcher/lib/dmpsee/engine.php')),
+  (new sesto_scd('dmpseee_dispatch_engine', [], $sys_dir . '/app/dispatch/lib/dmpsee/engine.php')),
   [],
-  'dispatcher',
+  'dispatch',
   true);
 
 if ($error !== '') {

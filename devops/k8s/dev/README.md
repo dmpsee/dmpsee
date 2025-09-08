@@ -73,6 +73,12 @@ You should see something like:
 2025-09-08T10:12:27Z INFO Starting Vinti server 2025.6 on port 20201
 ```
 
+Now install the Service
+
+```bash
+kubectl apply -f devops/k8s/dev/vaquita-vinti-service.yaml
+```
+
 ## Vaquita API
 
 For the API, and Dispatcher, you probably want to work on your code and see the changes into the k8s in real time.

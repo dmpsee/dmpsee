@@ -17,7 +17,7 @@ require_once DMPSEE_DIR . '/subscriber/url_read.php';
 require_once DMPSEE_DIR . '/event/subscribers.php';
 require_once DMPSEE_DIR . '/curl/post.php';
 
-function dmpseee_dispatcher_engine(array $config, array $args = []): void
+function dmpseee_dispatch_engine(array $config, array $args = []): void
 {
 
   /* log */

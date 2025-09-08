@@ -19,7 +19,7 @@ Vaquita is built from three main components:
 
 - **Vaquita Storage**: Storage for persisting events
 - **Vaquita API**: Provides a structured interface for publishing and consuming events
-- **Vaquita Dispatcher**: Handles delivery of events from publishers to subscribers
+- **Vaquita Dispatch**: Handles delivery of events from publishers to subscribers
 
 Together, these components allow Vaquita to capture events from publishers, store them as files, and reliably distribute them to subscribers.
 
